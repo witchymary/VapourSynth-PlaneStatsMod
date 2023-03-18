@@ -1,8 +1,17 @@
-CC = g++
-CFLAGS = -shared -O2 -Wall -std=c++17
+CXX := g++
+CXXFLAGS := -O2 -Wall -std=c++20
+LDFLAGS := -shared
 
-INCLUDE = -I/usr/include/vapoursynth/
-TARGET = libvsplanestatsmod.so
+INCLUDE := -I/usr/include/vapoursynth/
+TARGET := libvsplanestatsmod.so
 
-$(TARGET): src/shared.cpp src/PlaneAverage.cpp src/PlaneMinMax.cpp
-		$(CC) $(CFLAGS) $(INCLUDE) -o $@ $^
+SRC := src/shared.cpp src/PlaneAverage.cpp src/PlaneMinMax.cpp
+OBJ := $(patsubst %.cpp, %.o, $(SRC))
+
+all: $(OBJ)
+	$(CXX) $(LDFLAGS) -o $(TARGET) $^
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
+
+clean: 
+	rm -f $(OBJ)
