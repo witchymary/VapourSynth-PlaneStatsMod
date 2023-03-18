@@ -11,7 +11,7 @@ SRC := src/shared.cpp src/PlaneAverage.cpp src/PlaneMinMax.cpp
 OBJ := $(patsubst %.cpp, %.o, $(SRC))
 
 all: $(OBJ)
-	$(CXX) $(LDFLAGS) -o $(TARGET) $^
+	$(CXX) -o $(TARGET) $^ $(LDFLAGS)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
